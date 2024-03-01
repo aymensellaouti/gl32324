@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Inject, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { FirstService } from './first.service';
 import { AddFirstDto } from './dto/add-first.dto';
 import { UpdateFirstDto } from './dto/update-first.dto';
@@ -8,17 +17,23 @@ export class FirstController {
   // On a besoin d'une dépendance qui a un Token FirstService
   constructor(@Inject(FirstService) private firstService: FirstService) {}
   @Get()
-  sayHelloToVistors() {
-    return this.firstService.sayHello();
+  findAll() {
+    return this.firstService.findAll();
   }
   @Post()
   onPost(@Body() addFirstDto: AddFirstDto) {
-    console.log(addFirstDto instanceof AddFirstDto);
-
-    return addFirstDto;
+    return this.firstService.add(addFirstDto);
   }
-  @Patch()
-  onPatch(@Body() addFirstDto: UpdateFirstDto) {
-    return addFirstDto;
+  @Patch(':id')
+  onPatch(@Body() updateFirstDto: UpdateFirstDto, @Param('id') id: string) {
+    return this.firstService.update(id, updateFirstDto);
+  }
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.firstService.delete(id);
+  }
+  @Patch('restore/:id')
+  restore(@Param('id') id: string) {
+    return this.firstService.restore(id);
   }
 }
