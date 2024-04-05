@@ -6,7 +6,7 @@ import { HasId } from '../interfaces/hasId.interface';
 export class CrudService<Entity extends HasId> {
   constructor(private repository: Repository<Entity>) {}
 
-  add(entity: DeepPartial<Entity>): Promise<Entity> {
+  create(entity: DeepPartial<Entity>): Promise<Entity> {
     return this.repository.save(entity);
   }
 
@@ -21,7 +21,7 @@ export class CrudService<Entity extends HasId> {
     return this.repository.save(entity);
   }
 
-  async delete(id: string): Promise<UpdateResult> {
+  async remove(id: string): Promise<UpdateResult> {
     const result = await this.repository.softDelete(id);
     if (!result.affected) {
       throw new NotFoundException('entity Not Found');

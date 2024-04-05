@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Timestamp } from '../../common/database/timestamp.entity';
+import { Profile } from '../../profile/entities/profile.entity';
+
 
 @Entity('first')
 export class FirstEntity extends Timestamp {
@@ -9,4 +11,9 @@ export class FirstEntity extends Timestamp {
   name: string;
   @Column({})
   age: number;
+  @OneToMany(
+    () => Profile,
+    (profile: Profile) => profile.user
+  )
+  profiles: FirstEntity;
 }

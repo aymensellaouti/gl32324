@@ -6,6 +6,7 @@ import { SecondController } from './second/second.controller';
 import { CommonModule } from './common/common.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FirstEntity } from './first/entity/first.entity';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { FirstEntity } from './first/entity/first.entity';
       synchronize: true,
       logging: true,
     }),
+    ProfileModule,
   ],
   controllers: [AppController, SecondController],
   providers: [AppService],

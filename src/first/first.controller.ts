@@ -22,7 +22,7 @@ export class FirstController {
   }
   @Post()
   onPost(@Body() addFirstDto: AddFirstDto) {
-    return this.firstService.add(addFirstDto);
+    return this.firstService.create(addFirstDto);
   }
   @Patch(':id')
   onPatch(@Body() updateFirstDto: UpdateFirstDto, @Param('id') id: string) {
@@ -30,7 +30,7 @@ export class FirstController {
   }
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.firstService.delete(id);
+    return this.firstService.remove(id);
   }
   @Patch('restore/:id')
   restore(@Param('id') id: string) {
