@@ -7,6 +7,8 @@ import { CommonModule } from './common/common.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FirstEntity } from './first/entity/first.entity';
 import { ProfileModule } from './profile/profile.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { MessagesGateway } from './messages/messages.gateway';
 
 @Module({
   imports: [
@@ -24,9 +26,10 @@ import { ProfileModule } from './profile/profile.module';
       logging: true,
     }),
     ProfileModule,
+    EventEmitterModule.forRoot()
   ],
   controllers: [AppController, SecondController],
-  providers: [AppService],
+  providers: [AppService, MessagesGateway],
   exports: [],
 })
 export class AppModule implements NestModule {
